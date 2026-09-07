@@ -35,3 +35,30 @@ Node adalah sebuah program yang berjalan menggunakan ROS2, program yang memiliki
 Topic adalah jalur komunikasi yang digunakan node untuk mengirim dan menerima data.
 ![topic](assets/Topic-MultiplePublisherandMultipleSubscriber.gif)
 Sebuah node dapat mengirimkan informasi ke saluran tertentu, dan node lain yang mendengarkan saluran tersebut dapat menerima informasi yang dikirimkan.
+
+### Message
+Message adalah format data yang dikirimkan melalui topic. Berikut adalah contoh dari format data yang dapat dikirim melalui ROS2:
+- msg/Int32
+- msg/UInt32
+- msg/Float32
+- msg/Bool
+- msg/String
+- msg/ColorRGBA
+
+Semisal kita mau mengirim data dengan suatu format, tapi format tersebut tidak disediakan secara langsung oleh ROS2, kita dapat menentukan format kita sendiri menggunakan [custom interfaces](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Single-Package-Define-And-Use-Interface.html).
+
+## Persiapan sebelum Hands-On
+TheConstruct.ai merupakan salah satu cara menjalankan ROS2 tanpa harus melakukan instalasi apapun.
+
+### Membuat Akun di TheConstruct.ai
+1. Masuk ke https://www.theconstruct.ai, lalu buat akun dan login.
+2. Masuk ke https://app.theconstruct.ai, dan pilih opsi  "My Rosject", lalu pilih "Create a New Rosject"
+![my rosject](assets/my_rosject.png)
+3. Setup Rosject dengan opsi sebagai berikut:
+![create new](assets/create_new.png)
+4. Pilih Humble sebagai ROS version-nya:
+![pilih humble](assets/pilih_humble.png)
+5. Pilih "Empty Simulation" di Simulation Environment:
+![empty simulation](assets/empty_sim.png)
+6. Jika sudah selesai, kalian akan disambut dengan tampilan seperti ini:
+![selesai](assets/done_setyp.png)
