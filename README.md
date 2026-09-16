@@ -62,3 +62,45 @@ TheConstruct.ai merupakan salah satu cara menjalankan ROS2 tanpa harus melakukan
 ![empty simulation](assets/empty_sim.png)
 6. Jika sudah selesai, kalian akan disambut dengan tampilan seperti ini:
 ![selesai](assets/done_setyp.png)
+
+## Hands-On 1: OOP (Object-Oriented Programming)
+
+### Pengertian OOP
+Object-Oriented Programming (OOP) yaitu metode pembuatan program yang berfokus pada `Class` dan `Object`. Bayangkan `Class` itu seperti cetakan kue, dan `Object` adalah kue nyata yang dicetak dari cetakan tersebut.
+
+![ilustrasi OOP](assets/cetakan.png)
+
+Ketika kamu membuat program dengan konsep OOP, kamu mendesain cetakannya terlebih dahulu, baru kemudian mencetak objeknya untuk digunakan.
+
+### Class & Object
+Class adalah cetakan, cetak biru (blueprint), atau definisinya. Class menentukan data apa saja yang dimiliki dan fungsi apa saja yang bisa dijalankan.
+1. Atribut (data): variable untuk menyimpan informasi
+2. Method (fungsi): aksi yang bisa dilakukan
+
+### Object
+
+Object adalah wujud nyata (instance) yang dicetak dari Class tersebut. Setiap Object memiliki salinan datanya sendiri.
+
+### Constructor
+
+Constructor adalah method khusus yang akan otomatis dipanggil pertama kali ketika sebuah Object diciptakan di memori. Nama Constructor harus sama persis dengan nama Class-nya. Biasanya digunakan untuk menginisialisasi atau memberikan nilai awal pada atribut Object.
+
+### Access Modifier (Public, Private, Protected)
+
+Access Modifier adalah penentu hak akses terhadap atribut maupun method yang ada di dalam Class dari luar Class tersebut.
+
+- `public`: Anggota dapat diakses dari mana saja, baik dari dalam Class maupun dari luar Class (seperti di fungsi main()).
+
+- `private`: Anggota hanya bisa diakses oleh internal Class itu sendiri. Pihak luar maupun Class turunan tidak bisa mengaksesnya secara langsung.
+
+- `protected`: Anggota tidak bisa diakses dari luar Class, tetapi BISA diakses oleh Class turunan-nya.
+
+### Inheritance
+Inheritance adalah kemampuan sebuah Class untuk mewarisi atribut dan method dari Class lain.
+
+### Polymorphism & Overriding
+Polymorphism (banyak bentuk) memungkinkan Class anak untuk mengubah atau memperbarui perilaku dari fungsi yang diturunkan oleh Class induk.
+
+- `virtual`: Ditulis pada fungsi di Class Induk untuk memberi izin ke Class Anak agar fungsinya boleh diubah.
+
+- `override`: Ditulis pada fungsi di Class Anak untuk menegaskan bahwa fungsi tersebut menggantikan logika milik Class Induk.
