@@ -4,6 +4,41 @@ Selamat datang di **Workshop ITS Robocon!**
 
 Modul ini akan membahas tentang ROS2 serta cara mengimplementasikannya di bidang robotika.
 
+## Daftar Isi
+
+- [Apa itu ROS2 (Robot Operating System)?](#apa-itu-ros2-robot-operating-system)
+- [Konsep Dasar ROS2](#konsep-dasar-ros2)
+- [Komponen ROS2](#komponen-ros2)
+- [Persiapan sebelum Hands-On](#persiapan-sebelum-hands-on)
+- [Hands-On 1: Menggunakan ROS2 CLI dengan Demo Publisher dan Subscriber](#hands-on-1-menggunakan-ros2-cli-dengan-demo-publisher-dan-subscriber)
+- [OOP (Object-Oriented Programming)](#oop-object-oriented-programming)
+- [Hands-On 2: ROS2 Publisher & Subscriber](#hands-on-2-ros2-publisher--subscriber)
+    - [Membuat Workspace](#1-membuat-workspace)
+    - [Membuat Package](#2-membuat-package)
+    - [Membuat Publisher](#3-membuat-publisher)
+    - [Membuat Subscriber](#4-membuat-subscriber)
+    - [Mengatur CMake](#5-mengatur-cmake)
+    - [Build Workspace](#6-build-workspace)
+    - [Source Workspace](#7-source-workspace)
+    - [Menjalankan Publisher](#8-menjalankan-publisher)
+    - [Menjalankan Subscriber](#9-menjalankan-subscriber)
+    - [Melihat Node yang Berjalan](#10-melihat-node-yang-berjalan)
+    - [Melihat Topic](#11-melihat-topic)
+    - [Melihat Informasi Topic](#12-melihat-informasi-topic)
+    - [Melihat Message](#13-melihat-message)
+- [Hands-On 3: Menggerakkan Turtlesim dengan Publisher](#hands-on-3-menggerakkan-turtlesim-dengan-publisher)
+    - [Menjalankan Turtlesim](#1-menjalankan-turtlesim)
+    - [Membuat Workspace](#2-membuat-workspace-1)
+    - [Membuat Package](#3-membuat-package-1)
+    - [Membuat Publisher](#4-membuat-publisher-1)
+    - [Mengatur CMake](#5-mengatur-cmake-1)
+    - [Build Workspace](#6-build-workspace-1)
+    - [Source Workspace](#7-source-workspace-1)
+    - [Menjalankan Publisher](#8-menjalankan-publisher-1)
+    - [Melihat Topic yang Digunakan](#9-melihat-topic-yang-digunakan)
+    - [Melihat Informasi Topic](#10-melihat-informasi-topic-1)
+    - [Melihat Message yang Dikirim](#11-melihat-message-yang-dikirim)
+
 ## Apa itu ROS2 (Robot Operating System)?
 
 ROS2 (Robot Operating System) adalah framework untuk mengembangkan software robotika. ROS2 memiliki empat fungsi utama yaitu:
@@ -63,121 +98,6 @@ TheConstruct.ai merupakan salah satu cara menjalankan ROS2 tanpa harus melakukan
 6. Jika sudah selesai, kalian akan disambut dengan tampilan seperti ini:
 ![selesai](assets/done_setyp.png)
 7. Kedepannya, semua contoh kode bisa kalian jalankan di situ.
-
-## Hands-On 1: OOP (Object-Oriented Programming)
-
-### Pengertian OOP
-Object-Oriented Programming (OOP) yaitu metode pembuatan program yang berfokus pada `Class` dan `Object`. Bayangkan `Class` itu seperti cetakan kue, dan `Object` adalah kue nyata yang dicetak dari cetakan tersebut.
-
-![ilustrasi OOP](assets/cetakan.png)
-
-Ketika kamu membuat program dengan konsep OOP, kamu mendesain cetakannya terlebih dahulu, baru kemudian mencetak objeknya untuk digunakan.
-
-### Class & Object
-Class adalah cetakan, cetak biru (blueprint), atau definisinya. Class menentukan data apa saja yang dimiliki dan fungsi apa saja yang bisa dijalankan.
-1. Atribut (data): variable untuk menyimpan informasi
-2. Method (fungsi): aksi yang bisa dilakukan
-
-Pada file `oop_0/class_and_object.cpp`, `Robot` adalah sebuah class. Class tersebut memiliki:
-- atribut `name` untuk menyimpan nama robot;
-- method `boot()` untuk menyalakan robot; dan
-- method `move()` untuk menggerakkan robot.
-
-Class hanya mendefinisikan bentuk dan perilaku umum. Ia belum menjadi robot yang dapat digunakan sebelum dibuat menjadi object.
-
-### Object
-
-Object adalah wujud nyata (instance) yang dicetak dari Class tersebut. Setiap Object memiliki salinan datanya sendiri.
-
-Contohnya, baris berikut membuat object bernama `robotKu` dari class `Robot`:
-
-```cpp
-Robot robotKu("Triceratop");
-```
-
-Object kemudian dapat memanggil method milik class dengan operator titik (`.`):
-
-```cpp
-robotKu.boot();
-robotKu.move();
-```
-
-Pada `oop_1/inheritance.cpp`, `robot1` dan `robot2` juga merupakan object. Keduanya memiliki tipe class yang berbeda, yaitu `MobileRobot` dan `ArmRobot`.
-
-### Constructor
-
-Constructor adalah method khusus yang akan otomatis dipanggil pertama kali ketika sebuah Object diciptakan di memori. Nama Constructor harus sama persis dengan nama Class-nya. Biasanya digunakan untuk menginisialisasi atau memberikan nilai awal pada atribut Object.
-
-Constructor `Robot` menerima nama robot, kemudian menyimpannya ke atribut `name`:
-
-```cpp
-Robot(const std::string &name) { this->name = name; }
-```
-
-Parameter `const std::string &name` dikirim sebagai reference agar tidak perlu menyalin string, sedangkan `const` memastikan nilai asal tidak diubah. `this` menunjuk pada object yang sedang dibuat, sehingga `this->name` berarti atribut `name` milik object tersebut.
-
-Constructor class turunan dapat memanggil constructor class induk menggunakan constructor initializer list:
-
-```cpp
-MobileRobot(const std::string &name) : Robot(name) {}
-```
-
-Dengan begitu, bagian `Robot` dari object `MobileRobot` diinisialisasi melalui constructor `Robot`.
-
-### Encapsulation
-
-Encapsulation adalah penggabungan data dan method dalam satu class sekaligus pengaturan akses terhadap data tersebut. Tujuannya adalah menjaga data agar tidak dapat diubah sembarangan dari luar class.
-
-Pada `class_and_object.cpp`, atribut `name` diberi akses `private`. Artinya, `name` hanya dapat digunakan langsung oleh method di dalam class `Robot`; `main()` tidak dapat mengaksesnya secara langsung. `main()` menggunakan method public seperti `boot()` dan `move()` sebagai antarmuka untuk berinteraksi dengan object.
-
-### Access Modifier (Public, Private, Protected)
-
-Access Modifier adalah penentu hak akses terhadap atribut maupun method yang ada di dalam Class dari luar Class tersebut.
-
-- `public`: Anggota dapat diakses dari mana saja, baik dari dalam Class maupun dari luar Class (seperti di fungsi main()).
-
-- `private`: Anggota hanya bisa diakses oleh internal Class itu sendiri. Pihak luar maupun Class turunan tidak bisa mengaksesnya secara langsung.
-
-- `protected`: Anggota tidak bisa diakses dari luar Class, tetapi BISA diakses oleh Class turunan-nya.
-
-### Inheritance
-Inheritance adalah kemampuan sebuah Class untuk mewarisi atribut dan method dari Class lain. Class yang diwarisi disebut class induk, sedangkan class yang mewarisi disebut class turunan.
-
-Pada `oop_1/inheritance.cpp`, `Robot` adalah class induk. `MobileRobot` dan `ArmRobot` adalah class turunan:
-
-```cpp
-class MobileRobot : public Robot { ... };
-class ArmRobot : public Robot { ... };
-```
-
-Keduanya mewarisi method `boot()` dari `Robot`, sehingga method tersebut dapat dipanggil melalui `robot1` dan `robot2`. Keduanya juga memiliki perilaku `move()` masing-masing.
-
-Inheritance membantu menggunakan kembali kode yang sama. Informasi dan perilaku umum robot diletakkan di `Robot`, sedangkan perilaku khusus diletakkan di class turunannya.
-
-Pada contoh ini, atribut `name` diubah dari `private` menjadi `protected`. Dengan demikian, `name` tetap tidak dapat diakses langsung dari `main()`, tetapi dapat digunakan oleh class turunan untuk menampilkan nama robot.
-
-### Polymorphism & Overriding
-Polymorphism (banyak bentuk) memungkinkan Class anak untuk mengubah atau memperbarui perilaku dari fungsi yang diturunkan oleh Class induk.
-
-- `virtual`: Ditulis pada fungsi di Class Induk untuk memberi izin ke Class Anak agar fungsinya boleh diubah.
-
-- `override`: Ditulis pada fungsi di Class Anak untuk menegaskan bahwa fungsi tersebut menggantikan logika milik Class Induk.
-
-Pada contoh ini, `Robot::move()` ditandai sebagai `virtual`, lalu digantikan oleh implementasi berikut:
-
-```cpp
-void move() override { cout << name << " bergerak dengan sangat cepat\n"; }
-```
-
-di `MobileRobot`, dan:
-
-```cpp
-void move() override { cout << name << " bergerak dan mengambil box\n"; }
-```
-
-di `ArmRobot`. Akibatnya, setiap jenis robot dapat memiliki cara bergerak yang berbeda meskipun method-nya bernama sama.
-
-`virtual` akan lebih terlihat manfaatnya ketika object turunan diakses melalui reference atau pointer bertipe class induk. C++ kemudian memilih implementasi `move()` sesuai object sebenarnya. Pemilihan perilaku saat program berjalan ini disebut dynamic dispatch.
 
 ## Hands-On 1: Menggunakan ROS2 CLI dengan Demo Publisher dan Subscriber
 
@@ -304,6 +224,122 @@ Dengan demo `talker` dan `listener`, peserta dapat melihat langsung bagaimana RO
 
 Praktik ini menjadi dasar penting sebelum beralih ke pembuatan node sendiri, baik untuk sensor, kontrol robot, maupun komunikasi antar modul robot.
 
+
+
+## OOP (Object-Oriented Programming)
+
+### Pengertian OOP
+Object-Oriented Programming (OOP) yaitu metode pembuatan program yang berfokus pada `Class` dan `Object`. Bayangkan `Class` itu seperti cetakan kue, dan `Object` adalah kue nyata yang dicetak dari cetakan tersebut.
+
+![ilustrasi OOP](assets/cetakan.png)
+
+Ketika kamu membuat program dengan konsep OOP, kamu mendesain cetakannya terlebih dahulu, baru kemudian mencetak objeknya untuk digunakan.
+
+### Class & Object
+Class adalah cetakan, cetak biru (blueprint), atau definisinya. Class menentukan data apa saja yang dimiliki dan fungsi apa saja yang bisa dijalankan.
+1. Atribut (data): variable untuk menyimpan informasi
+2. Method (fungsi): aksi yang bisa dilakukan
+
+Pada file `oop_0/class_and_object.cpp`, `Robot` adalah sebuah class. Class tersebut memiliki:
+- atribut `name` untuk menyimpan nama robot;
+- method `boot()` untuk menyalakan robot; dan
+- method `move()` untuk menggerakkan robot.
+
+Class hanya mendefinisikan bentuk dan perilaku umum. Ia belum menjadi robot yang dapat digunakan sebelum dibuat menjadi object.
+
+### Object
+
+Object adalah wujud nyata (instance) yang dicetak dari Class tersebut. Setiap Object memiliki salinan datanya sendiri.
+
+Contohnya, baris berikut membuat object bernama `robotKu` dari class `Robot`:
+
+```cpp
+Robot robotKu("Triceratop");
+```
+
+Object kemudian dapat memanggil method milik class dengan operator titik (`.`):
+
+```cpp
+robotKu.boot();
+robotKu.move();
+```
+
+Pada `oop_1/inheritance.cpp`, `robot1` dan `robot2` juga merupakan object. Keduanya memiliki tipe class yang berbeda, yaitu `MobileRobot` dan `ArmRobot`.
+
+### Constructor
+
+Constructor adalah method khusus yang akan otomatis dipanggil pertama kali ketika sebuah Object diciptakan di memori. Nama Constructor harus sama persis dengan nama Class-nya. Biasanya digunakan untuk menginisialisasi atau memberikan nilai awal pada atribut Object.
+
+Constructor `Robot` menerima nama robot, kemudian menyimpannya ke atribut `name`:
+
+```cpp
+Robot(const std::string &name) { this->name = name; }
+```
+
+Parameter `const std::string &name` dikirim sebagai reference agar tidak perlu menyalin string, sedangkan `const` memastikan nilai asal tidak diubah. `this` menunjuk pada object yang sedang dibuat, sehingga `this->name` berarti atribut `name` milik object tersebut.
+
+Constructor class turunan dapat memanggil constructor class induk menggunakan constructor initializer list:
+
+```cpp
+MobileRobot(const std::string &name) : Robot(name) {}
+```
+
+Dengan begitu, bagian `Robot` dari object `MobileRobot` diinisialisasi melalui constructor `Robot`.
+
+### Encapsulation
+
+Encapsulation adalah penggabungan data dan method dalam satu class sekaligus pengaturan akses terhadap data tersebut. Tujuannya adalah menjaga data agar tidak dapat diubah sembarangan dari luar class.
+
+Pada `class_and_object.cpp`, atribut `name` diberi akses `private`. Artinya, `name` hanya dapat digunakan langsung oleh method di dalam class `Robot`; `main()` tidak dapat mengaksesnya secara langsung. `main()` menggunakan method public seperti `boot()` dan `move()` sebagai antarmuka untuk berinteraksi dengan object.
+
+### Access Modifier (Public, Private, Protected)
+
+Access Modifier adalah penentu hak akses terhadap atribut maupun method yang ada di dalam Class dari luar Class tersebut.
+
+- `public`: Anggota dapat diakses dari mana saja, baik dari dalam Class maupun dari luar Class (seperti di fungsi main()).
+
+- `private`: Anggota hanya bisa diakses oleh internal Class itu sendiri. Pihak luar maupun Class turunan tidak bisa mengaksesnya secara langsung.
+
+- `protected`: Anggota tidak bisa diakses dari luar Class, tetapi BISA diakses oleh Class turunan-nya.
+
+### Inheritance
+Inheritance adalah kemampuan sebuah Class untuk mewarisi atribut dan method dari Class lain. Class yang diwarisi disebut class induk, sedangkan class yang mewarisi disebut class turunan.
+
+Pada `oop_1/inheritance.cpp`, `Robot` adalah class induk. `MobileRobot` dan `ArmRobot` adalah class turunan:
+
+```cpp
+class MobileRobot : public Robot { ... };
+class ArmRobot : public Robot { ... };
+```
+
+Keduanya mewarisi method `boot()` dari `Robot`, sehingga method tersebut dapat dipanggil melalui `robot1` dan `robot2`. Keduanya juga memiliki perilaku `move()` masing-masing.
+
+Inheritance membantu menggunakan kembali kode yang sama. Informasi dan perilaku umum robot diletakkan di `Robot`, sedangkan perilaku khusus diletakkan di class turunannya.
+
+Pada contoh ini, atribut `name` diubah dari `private` menjadi `protected`. Dengan demikian, `name` tetap tidak dapat diakses langsung dari `main()`, tetapi dapat digunakan oleh class turunan untuk menampilkan nama robot.
+
+### Polymorphism & Overriding
+Polymorphism (banyak bentuk) memungkinkan Class anak untuk mengubah atau memperbarui perilaku dari fungsi yang diturunkan oleh Class induk.
+
+- `virtual`: Ditulis pada fungsi di Class Induk untuk memberi izin ke Class Anak agar fungsinya boleh diubah.
+
+- `override`: Ditulis pada fungsi di Class Anak untuk menegaskan bahwa fungsi tersebut menggantikan logika milik Class Induk.
+
+Pada contoh ini, `Robot::move()` ditandai sebagai `virtual`, lalu digantikan oleh implementasi berikut:
+
+```cpp
+void move() override { cout << name << " bergerak dengan sangat cepat\n"; }
+```
+
+di `MobileRobot`, dan:
+
+```cpp
+void move() override { cout << name << " bergerak dan mengambil box\n"; }
+```
+
+di `ArmRobot`. Akibatnya, setiap jenis robot dapat memiliki cara bergerak yang berbeda meskipun method-nya bernama sama.
+
+`virtual` akan lebih terlihat manfaatnya ketika object turunan diakses melalui reference atau pointer bertipe class induk. C++ kemudian memilih implementasi `move()` sesuai object sebenarnya. Pemilihan perilaku saat program berjalan ini disebut dynamic dispatch.
 
 # Hands-On 2: ROS2 Publisher & Subscriber
 
